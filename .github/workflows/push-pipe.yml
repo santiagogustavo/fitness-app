@@ -1,0 +1,43 @@
+name: Push pipeline
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-16.04
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Get yarn cache
+      id: yarn-cache
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Yarn cache
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: ${{ steps.yarn-cache.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Install and lint
+      run: |
+        yarn --frozen-lockfile
+        yarn lint
+        yarn jest --clearCache
+
+    - name: Run unit tests
+      run: yarn test
+      env:
+        CI: true
