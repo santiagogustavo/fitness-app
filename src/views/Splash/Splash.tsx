@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button } from 'react-native';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
-import Test from '@/Test';
+import BackgroundCarousel from '@/components/BackgroundCarousel/BackgroundCarousel';
 
 const View = styled.View`
   flex: 1;
@@ -12,9 +11,33 @@ const View = styled.View`
   justify-content: center;
 `;
 
-const Text = styled.Text`
-  color: red;
+const Content = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
+
+const CustomButton = styled.TouchableOpacity`
+  padding: 12px 16px;
+  border-radius: 4px;
+  background-color: #ffa726;
+`;
+
+const ButtonText = styled.Text`
+  color: white;
+  font-weight: bold;
+`;
+
+const images = [
+  'https://png.pngtree.com/element_our/20190530/ourlarge/pngtree-cartoon-skipping-rope-girl-illustration-image_1242914.jpg',
+  'https://cdn.dribbble.com/users/508588/screenshots/11181315/lncg_m80_06.jpg',
+  'https://image.freepik.com/free-vector/training-home-concept_23-2148481511.jpg',
+];
 
 const Splash = () => {
   const navigation = useNavigation();
@@ -25,9 +48,12 @@ const Splash = () => {
 
   return (
     <View>
-      <Test />
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Button title="CLICK ME" onPress={handleClickLogin} />
+      <BackgroundCarousel auto hide images={images} />
+      <Content>
+        <CustomButton onPress={handleClickLogin}>
+          <ButtonText>ENTRAR</ButtonText>
+        </CustomButton>
+      </Content>
     </View>
   );
 };
