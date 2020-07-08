@@ -1,24 +1,19 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import styled from 'styled-components/native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Test from '@/Test';
+import { Splash, Login } from '@/views';
 
-const View = styled.View`
-  flex: 1;
-  background-color: #fff;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Text = styled.Text`
-  color: red;
-`;
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View>
-      <Test />
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
