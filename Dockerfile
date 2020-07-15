@@ -36,4 +36,4 @@ COPY --from=INSTALLER /usr/src/app/package.json .
 
 RUN [ "npm", "install", "--global", "expo-cli", "--force" ]
 
-ENTRYPOINT [ "expo", "start", "--host", "localhost:80" ]
+ENTRYPOINT [ "expo", "start" ]
