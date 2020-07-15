@@ -2,10 +2,10 @@ version: '3'
 
 services: 
     demo:
-        name: demo
         build: .
+        container_name: demo
         ports:
-            - ""
+            - "80:19002"
         networks:
             - app-network
 

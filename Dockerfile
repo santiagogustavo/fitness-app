@@ -1,4 +1,4 @@
-FROM node:slim AS BUILDER
+FROM node:slim AS INSTALLER
 
 WORKDIR /usr/src/app
 
@@ -8,18 +8,32 @@ RUN [ "npm", "install" ]
 
 COPY . .
 
+FROM node:slim AS AUDIT
+
+WORKDIR /usr/src/app
+
+COPY --from=INSTALLER /usr/src/app/src/ .
+COPY package.json .
+
+RUN [ "npm", "audit", "fix" ]
+
 FROM node:slim AS LINTER
 
 WORKDIR /usr/src/app
 
-COPY --from=BUILDER /usr/src/app/build .
+COPY --from=INSTALLER /usr/src/app/src/ .
+COPY --from=INSTALLER /usr/src/app/node_modules/ .
+COPY --from=INSTALLER /usr/src/app/package.json .
+COPY --from=INSTALLER /usr/src/app/.eslintrc.js .
 
-RUN [ "npm", "run" ]
-
-WORKDIR /usr/src/app
-
-COPY --from=BUILDER /usr/src/app/build .
+RUN [ "npm", "run", "lint" ]
 
 FROM node:slim AS RUNNER
 
-ENTRYPOINT [ "expo", "start" ]
+WORKDIR /usr/src/app
+
+COPY --from=INSTALLER /usr/src/app/package.json .
+
+RUN [ "npm", "install", "--global", "expo-cli", "--foce" ]
+
+ENTRYPOINT [ "expo", "start", "--host", "localhost:80" ]
