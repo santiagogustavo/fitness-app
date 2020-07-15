@@ -5,7 +5,7 @@ services:
         build: .
         container_name: demo
         ports:
-            - "80:19002"
+            - "80:19000"
         networks:
             - app-network
 
