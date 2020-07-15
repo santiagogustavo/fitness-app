@@ -1,0 +1,14 @@
+version: '3'
+
+services: 
+    demo:
+        name: demo
+        build: .
+        ports:
+            - ""
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
