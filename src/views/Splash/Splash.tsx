@@ -21,6 +21,28 @@ const Content = styled.View`
   width: 100%;
 `;
 
+const Header = styled.View`
+  margin: 32px auto;
+  width: 70%;
+`;
+
+const SplashTextHighlight = styled.Text`
+  color: #7165e3;
+`;
+
+const SplashTextBig = styled.Text`
+  color: #0b0b24;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+`;
+
+// const SplashText = styled.Text`
+//   color: #0b0b24;
+//   font-size: 18px;
+//   text-align: center;
+// `;
+
 const ButtonSection = styled.View`
   margin-top: auto;
   margin-bottom: 24px;
@@ -74,6 +96,13 @@ const Splash = () => {
     <View>
       <BackgroundCarousel auto hide images={images} />
       <Content>
+        <Header>
+          <SplashTextBig>
+            Melhore seu
+            <SplashTextHighlight> estilo de vida </SplashTextHighlight>
+            de forma prazerosa
+          </SplashTextBig>
+        </Header>
         <ButtonSection>
           <Button onPress={handleClickSignUp} label="COMEÇAR AGORA" />
           <SignIn>

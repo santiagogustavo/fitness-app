@@ -7,7 +7,7 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 const View = styled.View`
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: #f5f6fa;
 `;
 
 const Image = styled.Image`
