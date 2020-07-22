@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
-import BackgroundCarousel from '@/components/BackgroundCarousel/BackgroundCarousel';
+import Button from '@/components/Button';
+
+import BackgroundCarousel from '@/components/BackgroundCarousel';
 
 const View = styled.View`
   flex: 1;
-  background-color: #fff;
+  background-color: #f5f6fa;
   align-items: center;
   justify-content: center;
 `;
@@ -17,20 +19,38 @@ const Content = styled.View`
   left: 0;
   height: 100%;
   width: 100%;
-  display: flex;
+`;
+
+const ButtonSection = styled.View`
+  margin-top: auto;
+  margin-bottom: 24px;
   align-items: center;
-  justify-content: center;
 `;
 
-const CustomButton = styled.TouchableOpacity`
-  padding: 12px 16px;
-  border-radius: 4px;
-  background-color: #ffa726;
+const SignIn = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: transparent;
+  margin-top: 24px;
 `;
 
-const ButtonText = styled.Text`
-  color: white;
+const SignInLabel = styled.Text`
+  color: #0b0b24;
+  font-size: 16px;
+`;
+
+const SignInButton = styled.TouchableOpacity`
+  flex: 0;
+  flex-basis: 80px;
+  font-size: 32px;
+`;
+
+const SignInText = styled.Text`
+  color: #7165e3;
   font-weight: bold;
+  font-size: 18px;
+  text-align: center;
 `;
 
 const images = [
@@ -42,6 +62,10 @@ const images = [
 const Splash = () => {
   const navigation = useNavigation();
 
+  function handleClickSignUp() {
+    navigation.navigate('SignUp');
+  }
+
   function handleClickLogin() {
     navigation.navigate('Login');
   }
@@ -50,9 +74,15 @@ const Splash = () => {
     <View>
       <BackgroundCarousel auto hide images={images} />
       <Content>
-        <CustomButton onPress={handleClickLogin}>
-          <ButtonText>ENTRAR</ButtonText>
-        </CustomButton>
+        <ButtonSection>
+          <Button onPress={handleClickSignUp} label="COMEÇAR AGORA" />
+          <SignIn>
+            <SignInLabel>Já tem uma conta?</SignInLabel>
+            <SignInButton onPress={handleClickLogin}>
+              <SignInText>Entrar</SignInText>
+            </SignInButton>
+          </SignIn>
+        </ButtonSection>
       </Content>
     </View>
   );

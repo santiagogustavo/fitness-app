@@ -1,46 +1,46 @@
 import React from 'react';
+// import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
-import * as Linking from 'expo-linking';
+// import * as Linking from 'expo-linking';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Button from '@/components/Button';
+import ButtonIcon from '@/components/ButtonIcon';
 
 const View = styled.View`
   flex: 1;
-  background-color: #fff;
+  background-color: #f5f6fa;
   align-items: center;
   justify-content: center;
 `;
 
-const CustomButton = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 12px 16px;
-  background-color: #01e675;
-  border-radius: 4px;
+const FacebookButton = styled(ButtonIcon)`
+  background-color: #039be5;
 `;
 
-const ButtonText = styled.Text`
-  color: white;
-  font-weight: bold;
-`;
-
-const ButtonIcon = styled(Icon)`
-  margin-left: 16px;
+const TitleText = styled.Text`
+  font-size: 32px;
+  text-align: center;
+  margin: 40px;
+  color: #0b0b24;
 `;
 
 const Login = () => {
-  function handleClickSendMessage() {
-    Linking.openURL('https://wa.me/5519995179798');
+  function handleClickLoginFacebook() {
+    // Linking.openURL('https://wa.me/5519995179798');
+    console.log('foo');
   }
 
   return (
     <View>
-      <CustomButton onPress={handleClickSendMessage}>
-        <ButtonText>ENVIAR MENSAGEM</ButtonText>
-        <ButtonIcon name="paper-plane" size={15} color="white" />
-      </CustomButton>
+      <TitleText>Olá, vamos treinar 😁</TitleText>
+      <FacebookButton
+        onPress={handleClickLoginFacebook}
+        label="ENTRAR COM FACEBOOK"
+        icon="facebook"
+      />
+      <Button onPress={handleClickLoginFacebook} label="ENTRAR COM CELULAR" />
+      <Button onPress={handleClickLoginFacebook} label="ESQUECI MINHA SENHA" />
     </View>
   );
 };
