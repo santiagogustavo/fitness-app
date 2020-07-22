@@ -10,15 +10,19 @@ const CustomButton = styled.TouchableOpacity`
   padding: 16px 24px;
   background-color: #039be5;
   border-radius: 24px;
+  width: 75%;
 `;
 
 const ButtonText = styled.Text`
   color: white;
   font-weight: bold;
+  text-align: center;
+  margin: auto;
 `;
 
 const LabelIcon = styled(Icon)`
   margin-left: 16px;
+  margin-right: auto;
 `;
 
 type Props = {
@@ -29,9 +33,9 @@ type Props = {
 
 class ButtonIcon extends Component<Props> {
   render() {
-    const { label, onPress, icon } = this.props;
+    const { label, onPress, icon, ...props } = this.props;
     return (
-      <CustomButton onPress={onPress}>
+      <CustomButton onPress={onPress} {...props}>
         <ButtonText>{label}</ButtonText>
         <LabelIcon name={icon} size={15} color="white" />
       </CustomButton>

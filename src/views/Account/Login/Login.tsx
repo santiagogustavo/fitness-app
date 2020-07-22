@@ -1,8 +1,6 @@
 import React from 'react';
-// import { Text } from 'react-native';
 import styled from 'styled-components/native';
-
-// import * as Linking from 'expo-linking';
+import { useNavigation } from '@react-navigation/native';
 
 import Button from '@/components/Button';
 import ButtonIcon from '@/components/ButtonIcon';
@@ -26,10 +24,21 @@ const TitleText = styled.Text`
 `;
 
 const Login = () => {
-  function handleClickLoginFacebook() {
-    // Linking.openURL('https://wa.me/5519995179798');
-    console.log('foo');
-  }
+  const navigation = useNavigation();
+
+  const handleClickLoginFacebook = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Dashboard' }],
+    });
+  };
+
+  const handleClickLoginPhone = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Dashboard' }],
+    });
+  };
 
   return (
     <View>
@@ -39,8 +48,7 @@ const Login = () => {
         label="ENTRAR COM FACEBOOK"
         icon="facebook"
       />
-      <Button onPress={handleClickLoginFacebook} label="ENTRAR COM CELULAR" />
-      <Button onPress={handleClickLoginFacebook} label="ESQUECI MINHA SENHA" />
+      <Button onPress={handleClickLoginPhone} label="ENTRAR COM CELULAR" />
     </View>
   );
 };

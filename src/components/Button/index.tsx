@@ -8,7 +8,7 @@ const CustomButton = styled.TouchableOpacity`
   padding: 16px 24px;
   background-color: #7165e3;
   border-radius: 24px;
-  width: 70%;
+  width: 75%;
 `;
 
 const ButtonText = styled.Text`

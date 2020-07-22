@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import Button from '@/components/Button';
 
@@ -65,7 +66,6 @@ const SignInLabel = styled.Text`
 const SignInButton = styled.TouchableOpacity`
   flex: 0;
   flex-basis: 80px;
-  font-size: 32px;
 `;
 
 const SignInText = styled.Text`
@@ -82,6 +82,7 @@ const images = [
 ];
 
 const Splash = () => {
+  const statusBarHeight = getStatusBarHeight();
   const navigation = useNavigation();
 
   function handleClickSignUp() {
@@ -95,7 +96,7 @@ const Splash = () => {
   return (
     <View>
       <BackgroundCarousel auto hide images={images} />
-      <Content>
+      <Content style={{ paddingTop: statusBarHeight }}>
         <Header>
           <SplashTextBig>
             Melhore seu
