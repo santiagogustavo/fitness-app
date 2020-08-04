@@ -89,8 +89,8 @@ const Splash = () => {
     navigation.navigate('SignUp');
   }
 
-  function handleClickLogin() {
-    navigation.navigate('Login');
+  function handleClickSignIn() {
+    navigation.navigate('SignIn');
   }
 
   return (
@@ -108,7 +108,7 @@ const Splash = () => {
           <Button onPress={handleClickSignUp} label="COMEÇAR AGORA" />
           <SignIn>
             <SignInLabel>Já tem uma conta?</SignInLabel>
-            <SignInButton onPress={handleClickLogin}>
+            <SignInButton onPress={handleClickSignIn}>
               <SignInText>Entrar</SignInText>
             </SignInButton>
           </SignIn>

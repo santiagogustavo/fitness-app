@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { ScrollView, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -43,57 +43,23 @@ const WhiteCircle = styled.View`
 type Props = {
   auto: boolean;
   hide: boolean;
-  images: Array<string>;
+  images: string[];
 };
 
-type State = {
-  selectedIndex: number;
-};
+const BackgroundCarousel = ({ images, auto, hide }: Props) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-class BackgroundCarousel extends Component<Props, State> {
-  scrollRef = React.createRef<ScrollView>();
-  constructor(props: any) {
-    super(props);
+  const scrollRef: any = useRef(null);
 
-    this.state = {
-      selectedIndex: 0,
-    };
-  }
-
-  componentDidMount = () => {
-    if (!this.props.auto) return;
-
-    setInterval(() => {
-      this.setState(
-        (prev) => {
-          const selectedIndex =
-            prev.selectedIndex === this.props.images.length - 1 ? 0 : prev.selectedIndex + 1;
-          return { selectedIndex };
-        },
-        () => {
-          if (!this.scrollRef || !this.scrollRef.current) return;
-          this.scrollRef.current.scrollTo({
-            animated: true,
-            y: 0,
-            x: DEVICE_WIDTH * this.state.selectedIndex,
-          });
-        },
-      );
-    }, 3000);
-  };
-
-  setSelectedIndex = (event: any) => {
+  const handleSelectIndex = (event: any) => {
     const viewSize = event.nativeEvent.layoutMeasurement.width;
     const contentOffset = event.nativeEvent.contentOffset.x;
-    const selectedIndex = Math.floor(contentOffset / viewSize);
-    this.setState({ selectedIndex });
+    const index = Math.floor(contentOffset / viewSize);
+    setSelectedIndex(index);
   };
 
-  renderCircleDiv = () => {
-    if (this.props.hide) return null;
-
-    const { images } = this.props;
-    const { selectedIndex } = this.state;
+  const renderCircleDiv = () => {
+    if (hide) return null;
     return (
       <CircleDiv>
         {images.map((image: string, i: number) => (
@@ -103,25 +69,41 @@ class BackgroundCarousel extends Component<Props, State> {
     );
   };
 
-  render = () => {
-    const { images } = this.props;
-    return (
-      <View>
-        <ScrollView
-          horizontal
-          pagingEnabled
-          scrollEnabled={!this.props.auto}
-          showsHorizontalScrollIndicator={false}
-          onMomentumScrollEnd={this.setSelectedIndex}
-          ref={this.scrollRef}>
-          {images.map((image: string) => (
-            <Image key={image} source={{ uri: image }} />
-          ))}
-        </ScrollView>
-        {this.renderCircleDiv()}
-      </View>
-    );
-  };
-}
+  useEffect(() => {
+    if (!auto) return;
+
+    const interval = setInterval(() => {
+      const index = selectedIndex === images.length - 1 ? 0 : selectedIndex + 1;
+      setSelectedIndex(index);
+
+      if (scrollRef && scrollRef.current) {
+        scrollRef.current.scrollTo({
+          animated: true,
+          y: 0,
+          x: DEVICE_WIDTH * index,
+        });
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [selectedIndex]);
+
+  return (
+    <View>
+      <ScrollView
+        horizontal
+        pagingEnabled
+        scrollEnabled={!auto}
+        showsHorizontalScrollIndicator={false}
+        onMomentumScrollEnd={handleSelectIndex}
+        ref={scrollRef}>
+        {images.map((image: string) => (
+          <Image key={image} source={{ uri: image }} />
+        ))}
+      </ScrollView>
+      {renderCircleDiv()}
+    </View>
+  );
+};
 
 export default BackgroundCarousel;

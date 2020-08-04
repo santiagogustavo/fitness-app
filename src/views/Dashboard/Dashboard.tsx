@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 import * as Linking from 'expo-linking';
 
+import Button from '@/components/Button';
 import ButtonIcon from '@/components/ButtonIcon';
+
+import { AuthContext } from '@/Contexts';
 
 const View = styled.View`
   flex: 1;
@@ -23,8 +26,14 @@ const SendMessageButton = styled(ButtonIcon)`
 `;
 
 const Dashboard = () => {
+  const { signOut }: any = useContext(AuthContext);
+
   const handleClickSendMessage = () => {
     Linking.openURL('https://wa.me/5519995179798');
+  };
+
+  const handleSignOut = () => {
+    signOut();
   };
 
   return (
@@ -35,6 +44,7 @@ const Dashboard = () => {
         label="ENVIAR MENSAGEM"
         icon="paper-plane"
       />
+      <Button onPress={handleSignOut} label="SAIR" />
     </View>
   );
 };

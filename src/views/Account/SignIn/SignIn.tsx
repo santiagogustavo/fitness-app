@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
 
 import Button from '@/components/Button';
 import ButtonIcon from '@/components/ButtonIcon';
+
+import { AuthContext } from '@/Contexts';
 
 const View = styled.View`
   flex: 1;
@@ -23,34 +24,28 @@ const TitleText = styled.Text`
   color: #0b0b24;
 `;
 
-const Login = () => {
-  const navigation = useNavigation();
+const SignIn = () => {
+  const { signIn }: any = useContext(AuthContext);
 
-  const handleClickLoginFacebook = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
-    });
+  const handleClickSignInFacebook = () => {
+    signIn({ access_token: 'test' });
   };
 
-  const handleClickLoginPhone = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
-    });
+  const handleClickSignInPhone = () => {
+    signIn({ access_token: 'test' });
   };
 
   return (
     <View>
       <TitleText>Olá, vamos treinar 😁</TitleText>
       <FacebookButton
-        onPress={handleClickLoginFacebook}
+        onPress={handleClickSignInFacebook}
         label="ENTRAR COM FACEBOOK"
         icon="facebook"
       />
-      <Button onPress={handleClickLoginPhone} label="ENTRAR COM CELULAR" />
+      <Button onPress={handleClickSignInPhone} label="ENTRAR COM CELULAR" />
     </View>
   );
 };
 
-export default Login;
+export default SignIn;
