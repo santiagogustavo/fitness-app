@@ -3,9 +3,10 @@ import { BackHandler } from 'react-native';
 import styled from 'styled-components/native';
 
 import Button from '@/components/Button';
+import Page from '@/components/Page';
 import ProgressBar from '@/components/ProgressBar';
 
-const View = styled.View`
+const View = styled(Page)`
   flex: 1;
   background-color: #f5f6fa;
   align-items: center;

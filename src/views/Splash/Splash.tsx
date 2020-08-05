@@ -1,25 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import Button from '@/components/Button';
 
 import BackgroundCarousel from '@/components/BackgroundCarousel';
+import Page from '@/components/Page';
 
 const View = styled.View`
   flex: 1;
   background-color: #f5f6fa;
   align-items: center;
   justify-content: center;
-`;
-
-const Content = styled.View`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
 `;
 
 const Header = styled.View`
@@ -82,7 +74,6 @@ const images = [
 ];
 
 const Splash = () => {
-  const statusBarHeight = getStatusBarHeight();
   const navigation = useNavigation();
 
   function handleClickSignUp() {
@@ -96,7 +87,7 @@ const Splash = () => {
   return (
     <View>
       <BackgroundCarousel auto hide images={images} />
-      <Content style={{ paddingTop: statusBarHeight }}>
+      <Page>
         <Header>
           <SplashTextBig>
             Melhore seu
@@ -113,7 +104,7 @@ const Splash = () => {
             </SignInButton>
           </SignIn>
         </ButtonSection>
-      </Content>
+      </Page>
     </View>
   );
 };

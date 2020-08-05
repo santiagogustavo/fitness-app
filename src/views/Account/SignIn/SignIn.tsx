@@ -3,10 +3,11 @@ import styled from 'styled-components/native';
 
 import Button from '@/components/Button';
 import ButtonIcon from '@/components/ButtonIcon';
+import Page from '@/components/Page';
 
 import { AuthContext } from '@/Contexts';
 
-const View = styled.View`
+const View = styled(Page)`
   flex: 1;
   background-color: #f5f6fa;
   align-items: center;
